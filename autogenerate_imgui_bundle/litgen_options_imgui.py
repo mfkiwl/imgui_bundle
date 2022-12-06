@@ -182,6 +182,8 @@ def litgen_options_imgui(options_type: ImguiOptionsType, docking_branch: bool) -
 
     options.class_exclude_by_name__regex = join_string_by_pipe_char(
         [
+            r"^ImVec2$",      # automatic cast to/from tuple
+            r"^ImVec4$",      # automatic cast to/from tuple
             r"^ImVector\b",
             # "ImGuiTextBuffer",
             # "^ImGuiStorage$"

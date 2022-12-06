@@ -5,6 +5,10 @@ import enum
 from . import internal as internal
 
 
+ImVec2 = Tuple[float, float]  # also accepts List[float] and numpy.array
+ImVec4 = Tuple[float, float, float, float]  # also accepts List[float] and numpy.array
+
+
 ##################################################
 #    Manually inserted code (typedefs, etc.)
 ##################################################
@@ -441,39 +445,6 @@ StoragePair = Any
 # A single decoded U32 character/code point. We encode them as multi bytes UTF-8 when used in strings.
 
 # Callback and functions types
-
-class ImVec2:  # imgui.h:259
-    # float                                   x,     /* original C++ signature */
-    x: float  # imgui.h:261
-    # y;    /* original C++ signature */
-    y: float  # imgui.h:261
-    # constexpr ImVec2()                      : x(0.0f), y(0.0f) { }    /* original C++ signature */
-    def __init__(self) -> None:  # imgui.h:262
-        pass
-    # constexpr ImVec2(float _x, float _y)    : x(_x), y(_y) { }    /* original C++ signature */
-    def __init__(self, _x: float, _y: float) -> None:  # imgui.h:263
-        pass
-    # We very rarely use this [] operator, the assert overhead is fine.
-
-class ImVec4:  # imgui.h:272
-    """ImVec4: 4D vector used to store clipping rectangles, colors etc. [Compile-time configurable type]"""
-
-    # float                                                     x,     /* original C++ signature */
-    x: float  # imgui.h:274
-    # y,     /* original C++ signature */
-    y: float  # imgui.h:274
-    # z,     /* original C++ signature */
-    z: float  # imgui.h:274
-    # w;    /* original C++ signature */
-    w: float  # imgui.h:274
-    # constexpr ImVec4()                                        : x(0.0f), y(0.0f), z(0.0f), w(0.0f) { }    /* original C++ signature */
-    def __init__(self) -> None:  # imgui.h:275
-        pass
-    # constexpr ImVec4(float _x, float _y, float _z, float _w)  : x(_x), y(_y), z(_z), w(_w) { }    /* original C++ signature */
-    def __init__(
-        self, _x: float, _y: float, _z: float, _w: float
-    ) -> None:  # imgui.h:276
-        pass
 
 # -----------------------------------------------------------------------------
 # [SECTION] Dear ImGui end-user API functions

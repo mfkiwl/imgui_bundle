@@ -35,26 +35,15 @@ namespace py = pybind11;
 //
 // pybind11 reference: https://pybind11.readthedocs.io/en/stable/advanced/cast/custom.html
 // ----------------------------------------------------------------------------
-
-struct MyVec2
-{
-    MyVec2() { values[0] = values[1] = 42.f; }
-    MyVec2(float x, float y) { values[0] = x; values[1] = y; }
-    float& operator[](int i) { return values[i]; }
-    float operator[](int i) const { return values[i]; }
-    float values[2];
-};
-
-
 namespace pybind11
 {
     namespace detail
     {
-        template<> struct type_caster<MyVec2>
+        template<> struct type_caster<ImVec2>
         {
         public:
             // This macro establishes the name 'ImVec2' in  function signatures and declares a local variable 'value' of type ImVec2
-            PYBIND11_TYPE_CASTER(MyVec2, const_name("MyVec2"));
+            PYBIND11_TYPE_CASTER(ImVec2, const_name("ImVec2"));
 
             // Conversion part 1 (Python->C++):
             // Return false upon failure.
@@ -69,11 +58,11 @@ namespace pybind11
                         printf("Cast python(list|tuple|array) to ImVec2: size should be 2!\n");
                         return false;
                     }
-                    for (size_t i = 0; i < 2; ++i)
-                        value[i] = as_floats[i];
+                    value.x = as_floats[0];
+                    value.y = as_floats[1];
                     return true;
                 }
-                printf("default false\n");
+                printf("Cast python(list|tuple|array) to ImVec2: unhandled type!\n");
                 return false;
             }
 
@@ -81,7 +70,7 @@ namespace pybind11
             // The second and third arguments are used to indicate the return value policy and parent object
             // (for ``return_value_policy::reference_internal``) and are generally
             // ignored by implicit casters.
-            static handle cast(const MyVec2& v, return_value_policy, handle defval)
+            static handle cast(const ImVec2& v, return_value_policy, handle defval)
             {
                 constexpr py::ssize_t shape[1] = { 2 };
                 constexpr py::ssize_t strides[1] = { sizeof(float) };
@@ -92,6 +81,53 @@ namespace pybind11
                 return as_array.release();
             }
         };
+
+
+        template<> struct type_caster<ImVec4>
+        {
+        public:
+            // This macro establishes the name 'ImVec2' in  function signatures and declares a local variable 'value' of type ImVec2
+        PYBIND11_TYPE_CASTER(ImVec4, const_name("ImVec4"));
+
+            // Conversion part 1 (Python->C++):
+            // Return false upon failure.
+            // The second argument indicates whether implicit conversions should be applied.
+            bool load(handle src, bool)
+            {
+                if (isinstance<list>(src) || isinstance<tuple>(src) || isinstance<array>(src) )
+                {
+                    std::vector<float> as_floats = src.cast<std::vector<float>>();
+                    if (as_floats.size() != 4)
+                    {
+                        printf("Cast python(list|tuple|array) to ImVec4: size should be 4!\n");
+                        return false;
+                    }
+                    value.x = as_floats[0];
+                    value.y = as_floats[1];
+                    value.z = as_floats[2];
+                    value.w = as_floats[3];
+                    return true;
+                }
+                printf("Cast python(list|tuple|array) to ImVec4: unhandled type!\n");
+                return false;
+            }
+
+            // Conversion part 2 (C++ -> Python):
+            // The second and third arguments are used to indicate the return value policy and parent object
+            // (for ``return_value_policy::reference_internal``) and are generally
+            // ignored by implicit casters.
+            static handle cast(const ImVec4& v, return_value_policy, handle defval)
+            {
+                constexpr py::ssize_t shape[1] = { 4 };
+                constexpr py::ssize_t strides[1] = { sizeof(float) };
+                static std::string float_numpy_str = pybind11::format_descriptor<float>::format();
+                static auto dtype_float = pybind11::dtype(float_numpy_str);
+
+                auto as_array = py::array(dtype_float, shape, strides);
+                return as_array.release();
+            }
+        };
+
     }
 }
 
@@ -101,10 +137,10 @@ namespace pybind11
 void py_init_module_imgui_main(py::module& m)
 {
     m.def("c2p", []() {
-        return MyVec2(1, 2);
+        return ImVec2(1, 2);
     });
-    m.def("p2c", [](const MyVec2& v) {
-       printf("MyVec2: %f %f\n", v[0], v[1]);
+    m.def("p2c", [](const ImVec2& v) {
+       printf("ImVec2: %f %f\n", v[0], v[1]);
     });
 
     ///////////////////////////////////////////////////////////////////////////
@@ -143,30 +179,6 @@ void py_init_module_imgui_main(py::module& m)
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  AUTOGENERATED CODE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // <litgen_pydef> // Autogenerated code below! Do not edit!
     ////////////////////    <generated_from:imgui.h>    ////////////////////
-    auto pyClassImVec2 =
-        py::class_<ImVec2>    // imgui.h:259
-            (m, "ImVec2", "")
-        .def_readwrite("x", &ImVec2::x, "")    // imgui.h:261
-        .def_readwrite("y", &ImVec2::y, "")    // imgui.h:261
-        .def(py::init<>())    // imgui.h:262
-        .def(py::init<float, float>(),    // imgui.h:263
-            py::arg("_x"), py::arg("_y"))
-        ;
-
-
-    auto pyClassImVec4 =
-        py::class_<ImVec4>    // imgui.h:272
-            (m, "ImVec4", "ImVec4: 4D vector used to store clipping rectangles, colors etc. [Compile-time configurable type]")
-        .def_readwrite("x", &ImVec4::x, "")    // imgui.h:274
-        .def_readwrite("y", &ImVec4::y, "")    // imgui.h:274
-        .def_readwrite("z", &ImVec4::z, "")    // imgui.h:274
-        .def_readwrite("w", &ImVec4::w, "")    // imgui.h:274
-        .def(py::init<>())    // imgui.h:275
-        .def(py::init<float, float, float, float>(),    // imgui.h:276
-            py::arg("_x"), py::arg("_y"), py::arg("_z"), py::arg("_w"))
-        ;
-
-
     m.def("create_context",    // imgui.h:294
         ImGui::CreateContext,
         py::arg("shared_font_atlas") = py::none(),
