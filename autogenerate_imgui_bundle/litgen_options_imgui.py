@@ -1,5 +1,7 @@
+from typing import Optional
 from enum import Enum
 
+import litgen
 from codemanip.code_replacements import RegexReplacementList
 from codemanip.code_utils import join_string_by_pipe_char
 from srcmlcpp.srcmlcpp_options import WarningType
@@ -187,8 +189,8 @@ def litgen_options_imgui(options_type: ImguiOptionsType, docking_branch: bool) -
 
     options.class_exclude_by_name__regex = join_string_by_pipe_char(
         [
-            r"^ImVec2$",      # automatic cast to/from tuple
-            r"^ImVec4$",      # automatic cast to/from tuple
+            r"^ImVec2$",  # automatic cast to/from tuple
+            r"^ImVec4$",  # automatic cast to/from tuple
             r"^ImVector\b",
             # "ImGuiTextBuffer",
             # "^ImGuiStorage$"
@@ -256,3 +258,45 @@ def litgen_options_imgui(options_type: ImguiOptionsType, docking_branch: bool) -
         pass
 
     return options
+
+
+def play():
+    options = litgen_options_imgui(ImguiOptionsType.imgui_h, True)
+    options.srcmlcpp_options.flag_show_progress = False
+
+    from litgen.internal.adapt_function_params._lambda_adapter import LambdaAdapter
+    from litgen.internal.adapted_types.adapted_function import AdaptedFunction
+
+    def my_adapter(f: AdaptedFunction) -> Optional[LambdaAdapter]:
+        """
+        We would need to adapt functions that use ImVec2 params with a default value such as:
+            void foo(const ImVec2 v = ImVec2(1, 1));
+
+        By using a lambda that like this
+            [](const py::tuple & v = py::tuple())
+            {
+                auto foo_adapt_imvec2_default = [](const py::tuple& v)
+                {
+                    ImVec2 v_as_imvec = to_imvec(v);
+                    return foo(v_as_imvec);
+                };
+
+                return foo_adapt_imvec2_default(items);
+            },
+
+            This is much to complicated, and I decided not to investigate this further.
+        """
+        print("Hello!")
+        return None
+
+    options.fn_custom_adapters = [my_adapter]
+
+    code = """
+IMGUI_API void foo(ImVec2 v);   
+    """
+    generated_code = litgen.generate_code(options, code)
+    print(generated_code.pydef_code)
+
+
+if __name__ == "__main__":
+    play()
