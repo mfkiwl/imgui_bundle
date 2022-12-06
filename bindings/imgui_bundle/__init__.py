@@ -1,3 +1,9 @@
+from typing import Tuple
+
+ImVec2 = Tuple[float, float]  # also accepts List[float] and numpy.ndarray
+ImVec4 = Tuple[float, float, float, float]  # also accepts List[float] and numpy.ndarray
+
+
 from imgui_bundle._imgui_bundle import imgui as imgui
 from imgui_bundle._imgui_bundle import hello_imgui as hello_imgui
 from imgui_bundle._imgui_bundle import implot as implot
@@ -65,8 +71,6 @@ __all__ = [
     "current_node_editor_context",
     # Base ImGui types
     "IM_COL32",
-    "ImVec2",
-    "ImVec4",
     "ImColor",
     "FLT_MIN",
     "FLT_MAX",

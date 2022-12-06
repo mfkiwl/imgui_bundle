@@ -72,13 +72,8 @@ namespace pybind11
             // ignored by implicit casters.
             static handle cast(const ImVec2& v, return_value_policy, handle defval)
             {
-                constexpr py::ssize_t shape[1] = { 2 };
-                constexpr py::ssize_t strides[1] = { sizeof(float) };
-                static std::string float_numpy_str = pybind11::format_descriptor<float>::format();
-                static auto dtype_float = pybind11::dtype(float_numpy_str);
-
-                auto as_array = py::array(dtype_float, shape, strides);
-                return as_array.release();
+                auto as_tuple = py::make_tuple(v.x, v.y);
+                return as_tuple.release();
             }
         };
 
@@ -118,30 +113,31 @@ namespace pybind11
             // ignored by implicit casters.
             static handle cast(const ImVec4& v, return_value_policy, handle defval)
             {
-                constexpr py::ssize_t shape[1] = { 4 };
-                constexpr py::ssize_t strides[1] = { sizeof(float) };
-                static std::string float_numpy_str = pybind11::format_descriptor<float>::format();
-                static auto dtype_float = pybind11::dtype(float_numpy_str);
-
-                auto as_array = py::array(dtype_float, shape, strides);
-                return as_array.release();
+                auto as_tuple = py::make_tuple(v.x, v.y, v.z, v.w);
+                return as_tuple.release();
             }
         };
-
-    }
-}
-
-
+    } // namespace detail
+} // namespace pybind11
 
 
 void py_init_module_imgui_main(py::module& m)
 {
+
+    auto ImVec2_Zero = []() {
+        py::list l;
+        l.append(0.f);
+        l.append(0.f);
+        return l;
+    };
+
     m.def("c2p", []() {
         return ImVec2(1, 2);
     });
-    m.def("p2c", [](const ImVec2& v) {
+    m.def("p2c", [](const ImVec2& v = ImVec2(0, 0)) {
        printf("ImVec2: %f %f\n", v[0], v[1]);
-    });
+    },
+          py::arg("v") = ImVec2_Zero());
 
     ///////////////////////////////////////////////////////////////////////////
     // Manual patches for elements whose signature is too esoteric

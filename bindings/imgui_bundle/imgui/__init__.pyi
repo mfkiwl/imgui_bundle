@@ -5,8 +5,8 @@ import enum
 from . import internal as internal
 
 
-ImVec2 = Tuple[float, float]  # also accepts List[float] and numpy.array
-ImVec4 = Tuple[float, float, float, float]  # also accepts List[float] and numpy.array
+ImVec2 = Tuple[float, float]  # also accepts List[float] and numpy.ndarray
+ImVec4 = Tuple[float, float, float, float]  # also accepts List[float] and numpy.ndarray
 
 
 ##################################################
