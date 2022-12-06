@@ -620,7 +620,7 @@ def end() -> None:  # imgui.h:337
 # IMGUI_API bool          BeginChild(const char* str_id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0);    /* original C++ signature */
 def begin_child(
     str_id: str,
-    size: ImVec2 = ImVec2(0, 0),
+    size: ImVec2 = imvec2_zero(),
     border: bool = False,
     flags: WindowFlags = 0,
 ) -> bool:  # imgui.h:347
@@ -628,7 +628,7 @@ def begin_child(
 
 # IMGUI_API bool          BeginChild(ImGuiID id, const ImVec2& size = ImVec2(0, 0), bool border = false, ImGuiWindowFlags flags = 0);    /* original C++ signature */
 def begin_child(
-    id_: ID, size: ImVec2 = ImVec2(0, 0), border: bool = False, flags: WindowFlags = 0
+    id_: ID, size: ImVec2 = imvec2_zero(), border: bool = False, flags: WindowFlags = 0
 ) -> bool:  # imgui.h:348
     pass
 
@@ -695,7 +695,7 @@ def get_window_viewport() -> Viewport:  # imgui.h:363
 # - Prefer using SetNextXXX functions (before Begin) rather that SetXXX functions (after Begin).
 # IMGUI_API void          SetNextWindowPos(const ImVec2& pos, ImGuiCond cond = 0, const ImVec2& pivot = ImVec2(0, 0));     /* original C++ signature */
 def set_next_window_pos(
-    pos: ImVec2, cond: Cond = 0, pivot: ImVec2 = ImVec2(0, 0)
+    pos: ImVec2, cond: Cond = 0, pivot: ImVec2 = imvec2_zero()
 ) -> None:  # imgui.h:367
     """set next window position. call before Begin(). use pivot=(0.5,0.5) to center on given point, etc."""
     pass
@@ -1202,7 +1202,7 @@ def bullet_text(fmt: str) -> None:  # imgui.h:503
 # - Most widgets return True when the value has been changed or when pressed/selected
 # - You may also use one of the many IsItemXXX functions (e.g. IsItemActive, IsItemHovered, etc.) to query widget state.
 # IMGUI_API bool          Button(const char* label, const ImVec2& size = ImVec2(0, 0));       /* original C++ signature */
-def button(label: str, size: ImVec2 = ImVec2(0, 0)) -> bool:  # imgui.h:509
+def button(label: str, size: ImVec2 = imvec2_zero()) -> bool:  # imgui.h:509
     """button"""
     pass
 
@@ -1268,10 +1268,10 @@ def bullet() -> None:  # imgui.h:519
 def image(
     user_texture_id: ImTextureID,
     size: ImVec2,
-    uv0: ImVec2 = ImVec2(0, 0),
+    uv0: ImVec2 = imvec2_zero(),
     uv1: ImVec2 = ImVec2(1, 1),
     tint_col: ImVec4 = ImVec4(1, 1, 1, 1),
-    border_col: ImVec4 = ImVec4(0, 0, 0, 0),
+    border_col: ImVec4 = imvec4_zero(),
 ) -> None:  # imgui.h:523
     pass
 
@@ -1280,9 +1280,9 @@ def image_button(
     str_id: str,
     user_texture_id: ImTextureID,
     size: ImVec2,
-    uv0: ImVec2 = ImVec2(0, 0),
+    uv0: ImVec2 = imvec2_zero(),
     uv1: ImVec2 = ImVec2(1, 1),
-    bg_col: ImVec4 = ImVec4(0, 0, 0, 0),
+    bg_col: ImVec4 = imvec4_zero(),
     tint_col: ImVec4 = ImVec4(1, 1, 1, 1),
 ) -> bool:  # imgui.h:524
     pass
@@ -1774,7 +1774,7 @@ def color_picker4(
 
 # IMGUI_API bool          ColorButton(const char* desc_id, const ImVec4& col, ImGuiColorEditFlags flags = 0, const ImVec2& size = ImVec2(0, 0));     /* original C++ signature */
 def color_button(
-    desc_id: str, col: ImVec4, flags: ColorEditFlags = 0, size: ImVec2 = ImVec2(0, 0)
+    desc_id: str, col: ImVec4, flags: ColorEditFlags = 0, size: ImVec2 = imvec2_zero()
 ) -> bool:  # imgui.h:606
     """display a color square/button, hover for details, return True when pressed."""
     pass
@@ -1857,7 +1857,7 @@ def selectable(
     label: str,
     selected: bool = False,
     flags: SelectableFlags = 0,
-    size: ImVec2 = ImVec2(0, 0),
+    size: ImVec2 = imvec2_zero(),
 ) -> bool:  # imgui.h:632
     """ "bool selected" carry the selection state (read-only). Selectable() is clicked is returns True so you can modify your selection state. size.x==0.0: use remaining width, size.x>0.0: specify width. size.y==0.0: use label height, size.y>0.0: specify height"""
     pass
@@ -1867,7 +1867,7 @@ def selectable(
     label: str,
     p_selected: bool,
     flags: SelectableFlags = 0,
-    size: ImVec2 = ImVec2(0, 0),
+    size: ImVec2 = imvec2_zero(),
 ) -> Tuple[bool, bool]:  # imgui.h:633
     """ "bool* p_selected" point to the selection state (read-write), as a convenient helper."""
     pass
@@ -1879,7 +1879,7 @@ def selectable(
 # - Choose frame width:   size.x > 0.0: custom  /  size.x < 0.0 or -FLT_MIN: right-align   /  size.x = 0.0 (default): use current ItemWidth
 # - Choose frame height:  size.y > 0.0: custom  /  size.y < 0.0 or -FLT_MIN: bottom-align  /  size.y = 0.0 (default): arbitrary default height which can fit ~7 items
 # IMGUI_API bool          BeginListBox(const char* label, const ImVec2& size = ImVec2(0, 0));     /* original C++ signature */
-def begin_list_box(label: str, size: ImVec2 = ImVec2(0, 0)) -> bool:  # imgui.h:641
+def begin_list_box(label: str, size: ImVec2 = imvec2_zero()) -> bool:  # imgui.h:641
     """open a framed scrolling region"""
     pass
 
@@ -1904,7 +1904,7 @@ def plot_lines(
     overlay_text: Optional[str] = None,
     scale_min: float = sys.float_info.max,
     scale_max: float = sys.float_info.max,
-    graph_size: ImVec2 = ImVec2(0, 0),
+    graph_size: ImVec2 = imvec2_zero(),
     stride: int = -1,
 ) -> None:  # imgui.h:648
     pass
@@ -1917,7 +1917,7 @@ def plot_histogram(
     overlay_text: Optional[str] = None,
     scale_min: float = sys.float_info.max,
     scale_max: float = sys.float_info.max,
-    graph_size: ImVec2 = ImVec2(0, 0),
+    graph_size: ImVec2 = imvec2_zero(),
     stride: int = -1,
 ) -> None:  # imgui.h:650
     pass
@@ -2331,7 +2331,7 @@ def set_tab_item_closed(tab_or_docked_window_label: str) -> None:  # imgui.h:800
 # IMGUI_API ImGuiID       DockSpace(ImGuiID id, const ImVec2& size = ImVec2(0, 0), ImGuiDockNodeFlags flags = 0, const ImGuiWindowClass* window_class = NULL);    /* original C++ signature */
 def dock_space(
     id_: ID,
-    size: ImVec2 = ImVec2(0, 0),
+    size: ImVec2 = imvec2_zero(),
     flags: DockNodeFlags = 0,
     window_class: Optional[WindowClass] = None,
 ) -> ID:  # imgui.h:815
@@ -5348,9 +5348,9 @@ class SizeCallbackData:  # imgui.h:2193
     # ImGuiSizeCallbackData(ImVec2 Pos = ImVec2(), ImVec2 CurrentSize = ImVec2(), ImVec2 DesiredSize = ImVec2());    /* original C++ signature */
     def __init__(
         self,
-        pos: ImVec2 = ImVec2(),
-        current_size: ImVec2 = ImVec2(),
-        desired_size: ImVec2 = ImVec2(),
+        pos: ImVec2 = imvec2_zero(),
+        current_size: ImVec2 = imvec2_zero(),
+        desired_size: ImVec2 = imvec2_zero(),
     ) -> None:  # Line:3
         """Auto-generated default constructor with named params"""
         pass
@@ -5741,7 +5741,7 @@ class ImDrawCmdHeader:  # imgui.h:2540
     vtx_offset: int  # imgui.h:2544
     # ImDrawCmdHeader(ImVec4 ClipRect = ImVec4(), ImTextureID TextureId = ImTextureID());    /* original C++ signature */
     def __init__(
-        self, clip_rect: ImVec4 = ImVec4(), texture_id: ImTextureID = ImTextureID()
+        self, clip_rect: ImVec4 = imvec4_zero(), texture_id: ImTextureID = ImTextureID()
     ) -> None:  # Line:3
         """Auto-generated default constructor with named params"""
         pass
@@ -6096,7 +6096,7 @@ class ImDrawList:  # imgui.h:2612
         user_texture_id: ImTextureID,
         p_min: ImVec2,
         p_max: ImVec2,
-        uv_min: ImVec2 = ImVec2(0, 0),
+        uv_min: ImVec2 = imvec2_zero(),
         uv_max: ImVec2 = ImVec2(1, 1),
         col: ImU32 = IM_COL32_WHITE,
     ) -> None:  # imgui.h:2675
@@ -6109,7 +6109,7 @@ class ImDrawList:  # imgui.h:2612
         p2: ImVec2,
         p3: ImVec2,
         p4: ImVec2,
-        uv1: ImVec2 = ImVec2(0, 0),
+        uv1: ImVec2 = imvec2_zero(),
         uv2: ImVec2 = ImVec2(1, 0),
         uv3: ImVec2 = ImVec2(1, 1),
         uv4: ImVec2 = ImVec2(0, 1),
@@ -6608,7 +6608,7 @@ class ImFontAtlas:  # imgui.h:2857
         width: int,
         height: int,
         advance_x: float,
-        offset: ImVec2 = ImVec2(0, 0),
+        offset: ImVec2 = imvec2_zero(),
     ) -> int:  # imgui.h:2912
         pass
     # [Internal]
@@ -7127,7 +7127,7 @@ def input_text(
 def input_text_multiline(
     label: str,
     str: str,
-    size: ImVec2 = ImVec2(0, 0),
+    size: ImVec2 = imvec2_zero(),
     flags: InputTextFlags = 0,
     user_data: Optional[Any] = None,
 ) -> Tuple[bool, str]:  # imgui_stdlib.h:16

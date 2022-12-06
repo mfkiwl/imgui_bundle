@@ -819,7 +819,7 @@ class ColorMod:  # imgui_internal.h:992
     backup_value: ImVec4  # imgui_internal.h:995
     # ImGuiColorMod(ImGuiCol Col = ImGuiCol(), ImVec4 BackupValue = ImVec4());    /* original C++ signature */
     def __init__(
-        self, col: Col = Col(), backup_value: ImVec4 = ImVec4()
+        self, col: Col = Col(), backup_value: ImVec4 = imvec4_zero()
     ) -> None:  # Line:3
         """Auto-generated default constructor with named params"""
         pass
@@ -888,11 +888,11 @@ class GroupData:  # imgui_internal.h:1022
     def __init__(
         self,
         window_id: ID = ID(),
-        backup_cursor_pos: ImVec2 = ImVec2(),
-        backup_cursor_max_pos: ImVec2 = ImVec2(),
+        backup_cursor_pos: ImVec2 = imvec2_zero(),
+        backup_cursor_max_pos: ImVec2 = imvec2_zero(),
         backup_indent: ImVec1 = ImVec1(),
         backup_group_offset: ImVec1 = ImVec1(),
-        backup_curr_line_size: ImVec2 = ImVec2(),
+        backup_curr_line_size: ImVec2 = imvec2_zero(),
         backup_curr_line_text_base_offset: float = float(),
         backup_active_id_is_alive: ID = ID(),
         backup_active_id_previous_frame_is_alive: bool = bool(),
@@ -2941,13 +2941,13 @@ class WindowTempData:  # imgui_internal.h:2382
     # ImGuiWindowTempData(ImVec2 CursorPos = ImVec2(), ImVec2 CursorPosPrevLine = ImVec2(), ImVec2 CursorStartPos = ImVec2(), ImVec2 CursorMaxPos = ImVec2(), ImVec2 IdealMaxPos = ImVec2(), ImVec2 CurrLineSize = ImVec2(), ImVec2 PrevLineSize = ImVec2(), float CurrLineTextBaseOffset = float(), float PrevLineTextBaseOffset = float(), bool IsSameLine = bool(), bool IsSetPos = bool(), ImVec1 Indent = ImVec1(), ImVec1 ColumnsOffset = ImVec1(), ImVec1 GroupOffset = ImVec1(), ImVec2 CursorStartPosLossyness = ImVec2(), ImGuiNavLayer NavLayerCurrent = ImGuiNavLayer(), short NavLayersActiveMask = short(), short NavLayersActiveMaskNext = short(), bool NavHideHighlightOneFrame = bool(), bool NavHasScroll = bool(), bool MenuBarAppending = bool(), ImVec2 MenuBarOffset = ImVec2(), ImGuiMenuColumns MenuColumns = ImGuiMenuColumns(), int TreeDepth = int(), ImU32 TreeJumpToParentOnPopMask = ImU32(), int CurrentTableIdx = int(), ImGuiLayoutType LayoutType = ImGuiLayoutType(), ImGuiLayoutType ParentLayoutType = ImGuiLayoutType(), float ItemWidth = float(), float TextWrapPos = float());    /* original C++ signature */
     def __init__(
         self,
-        cursor_pos: ImVec2 = ImVec2(),
-        cursor_pos_prev_line: ImVec2 = ImVec2(),
-        cursor_start_pos: ImVec2 = ImVec2(),
-        cursor_max_pos: ImVec2 = ImVec2(),
-        ideal_max_pos: ImVec2 = ImVec2(),
-        curr_line_size: ImVec2 = ImVec2(),
-        prev_line_size: ImVec2 = ImVec2(),
+        cursor_pos: ImVec2 = imvec2_zero(),
+        cursor_pos_prev_line: ImVec2 = imvec2_zero(),
+        cursor_start_pos: ImVec2 = imvec2_zero(),
+        cursor_max_pos: ImVec2 = imvec2_zero(),
+        ideal_max_pos: ImVec2 = imvec2_zero(),
+        curr_line_size: ImVec2 = imvec2_zero(),
+        prev_line_size: ImVec2 = imvec2_zero(),
         curr_line_text_base_offset: float = float(),
         prev_line_text_base_offset: float = float(),
         is_same_line: bool = bool(),
@@ -2955,14 +2955,14 @@ class WindowTempData:  # imgui_internal.h:2382
         indent: ImVec1 = ImVec1(),
         columns_offset: ImVec1 = ImVec1(),
         group_offset: ImVec1 = ImVec1(),
-        cursor_start_pos_lossyness: ImVec2 = ImVec2(),
+        cursor_start_pos_lossyness: ImVec2 = imvec2_zero(),
         nav_layer_current: NavLayer = NavLayer(),
         nav_layers_active_mask: int = int(),
         nav_layers_active_mask_next: int = int(),
         nav_hide_highlight_one_frame: bool = bool(),
         nav_has_scroll: bool = bool(),
         menu_bar_appending: bool = bool(),
-        menu_bar_offset: ImVec2 = ImVec2(),
+        menu_bar_offset: ImVec2 = imvec2_zero(),
         menu_columns: MenuColumns = MenuColumns(),
         tree_depth: int = int(),
         tree_jump_to_parent_on_pop_mask: ImU32 = ImU32(),
@@ -4846,7 +4846,7 @@ def begin_table_ex(
     id_: ID,
     columns_count: int,
     flags: TableFlags = 0,
-    outer_size: ImVec2 = ImVec2(0, 0),
+    outer_size: ImVec2 = imvec2_zero(),
     inner_width: float = 0.0,
 ) -> bool:  # imgui_internal.h:3267
     pass
@@ -5133,7 +5133,7 @@ def render_text_clipped(
     text: str,
     text_end: str,
     text_size_if_known: ImVec2,
-    align: ImVec2 = ImVec2(0, 0),
+    align: ImVec2 = imvec2_zero(),
     clip_rect: Optional[ImRect] = None,
 ) -> None:  # imgui_internal.h:3329
     pass
@@ -5146,7 +5146,7 @@ def render_text_clipped_ex(
     text: str,
     text_end: str,
     text_size_if_known: ImVec2,
-    align: ImVec2 = ImVec2(0, 0),
+    align: ImVec2 = imvec2_zero(),
     clip_rect: Optional[ImRect] = None,
 ) -> None:  # imgui_internal.h:3330
     pass
@@ -5281,7 +5281,7 @@ def text_ex(
 
 # IMGUI_API bool          ButtonEx(const char* label, const ImVec2& size_arg = ImVec2(0, 0), ImGuiButtonFlags flags = 0);    /* original C++ signature */
 def button_ex(
-    label: str, size_arg: ImVec2 = ImVec2(0, 0), flags: ButtonFlags = 0
+    label: str, size_arg: ImVec2 = imvec2_zero(), flags: ButtonFlags = 0
 ) -> bool:  # imgui_internal.h:3351
     pass
 

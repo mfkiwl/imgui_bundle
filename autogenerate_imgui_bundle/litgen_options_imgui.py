@@ -86,6 +86,11 @@ def litgen_options_imgui(options_type: ImguiOptionsType, docking_branch: bool) -
     options.type_replacements.add_last_replacement(r"ImGui([A-Z][a-zA-Z0-9]*)", r"\1")
     options.var_names_replacements.add_last_replacement(r"^id$", "id_")  # id() is a built-in function in python
 
+    options.value_replacements.add_last_replacement(r"ImVec2\(\)", "imvec2_zero()")
+    options.value_replacements.add_last_replacement(r"ImVec2\(0, 0\)", "imvec2_zero()")
+    options.value_replacements.add_last_replacement(r"ImVec4\(\)", "imvec4_zero()")
+    options.value_replacements.add_last_replacement(r"ImVec4\(0, 0, 0, 0\)", "imvec4_zero()")
+
     # options.names_replacements.add_last_replacement(r"(^ImGui)([A-Z])", r"\2")
 
     options.python_max_line_length = -1  # in ImGui, the function decls are on *one* line
