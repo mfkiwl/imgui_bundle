@@ -123,26 +123,29 @@ namespace pybind11
 
 void py_init_module_imgui_main(py::module& m)
 {
+    ///////////////////////////////////////////////////////////////////////////
+    // Manual patches for elements whose signature is too esoteric
+    // and cannot be automatically bound
+    ///////////////////////////////////////////////////////////////////////////
 
     auto ImVec2_Zero = []() {
-        py::list l;
-        l.append(0.f);
-        l.append(0.f);
-        return l;
+        return py::make_tuple(0.f, 0.f);
     };
+    auto ImVec4_Zero = []() {
+        return py::make_tuple(0.f, 0.f, 0.f, 0.f);
+    };
+
+    m.def("imvec2_zero", ImVec2_Zero, " (0, 0)");
+    m.def("imvec4_zero", ImVec4_Zero, " (0, 0, 0, 0)");
 
     m.def("c2p", []() {
         return ImVec2(1, 2);
     });
     m.def("p2c", [](const ImVec2& v = ImVec2(0, 0)) {
-       printf("ImVec2: %f %f\n", v[0], v[1]);
-    },
+              printf("ImVec2: %f %f\n", v[0], v[1]);
+          },
           py::arg("v") = ImVec2_Zero());
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Manual patches for elements whose signature is too esoteric
-    // and cannot be automatically bound
-    ///////////////////////////////////////////////////////////////////////////
 
     // FLT_MIN & FLT_MAX
     m.attr("FLT_MIN") = (float)FLT_MIN;
