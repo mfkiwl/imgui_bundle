@@ -3,7 +3,7 @@ import sys
 import os
 
 from imgui_bundle import imgui_color_text_edit as text_edit, imgui_md
-from imgui_bundle import imgui, ImVec2
+from imgui_bundle import imgui
 
 
 EDITOR = text_edit.TextEditor()
@@ -93,14 +93,14 @@ How to customize the theme."""
 
 
 def demo_apps():
-    imgui.begin_child("##Doc", ImVec2(0, imgui.get_window_height() - 300))
+    imgui.begin_child("##Doc", (0, imgui.get_window_height() - 300))
     demo_imgui()
     demo_custom_font()
     demo_hello_imgui()
     imgui.end_child()
 
     if len(EDITOR.get_text()) > 1:
-        imgui.set_next_window_size(ImVec2(800, 600), imgui.Cond_.appearing)
+        imgui.set_next_window_size((800, 600), imgui.Cond_.appearing)
         imgui.begin("App code")
         imgui.text("Code for this demo")
         EDITOR.render("Code")

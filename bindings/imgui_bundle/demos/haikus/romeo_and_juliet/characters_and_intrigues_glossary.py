@@ -1,7 +1,7 @@
 """
             ======= Glossary ====
 """
-from imgui_bundle import run, imgui, imgui_node_editor as ed, ImVec4, ImVec2
+from imgui_bundle import run, imgui, imgui_node_editor as ed, ImVec4
 
 conundrum = ed.PinId.create
 soul = ed.NodeId.create

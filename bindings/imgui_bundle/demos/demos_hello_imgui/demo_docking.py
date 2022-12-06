@@ -12,7 +12,7 @@ It demonstrates:
 import os
 from enum import Enum
 
-from imgui_bundle import hello_imgui, icons_fontawesome, imgui, imgui_md, ImVec2
+from imgui_bundle import hello_imgui, icons_fontawesome, imgui, imgui_md
 
 
 # Struct that holds the application's state
@@ -113,7 +113,7 @@ You can even easily tweak their colors.
 
     imgui.push_font(gAkronimFont)
     imgui.text("Hello  " + icons_fontawesome.ICON_FA_SMILE)
-    hello_imgui.image_from_asset("world.jpg", ImVec2(100, 100))  # type: ignore
+    hello_imgui.image_from_asset("world.jpg", (100, 100))  # type: ignore
     imgui.pop_font()
     if imgui.is_item_hovered():
         imgui.set_tooltip(
@@ -178,7 +178,7 @@ def status_bar_gui(app_state: AppState):
     if app_state.rocket_state == AppState.RocketState.Preparing:
         imgui.text("Rocket completion: ")
         imgui.same_line()
-        imgui.progress_bar(app_state.rocket_progress, imgui.ImVec2(100.0, 15.0))  # type: ignore
+        imgui.progress_bar(app_state.rocket_progress, (100.0, 15.0))  # type: ignore
 
 
 def main():

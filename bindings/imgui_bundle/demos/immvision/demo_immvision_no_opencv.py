@@ -3,9 +3,6 @@ from imgui_bundle import imgui, immvision
 import numpy as np
 import math
 
-ImVec2 = imgui.ImVec2
-ImVec4 = imgui.ImVec4
-
 
 def main():
     from imgui_bundle import run

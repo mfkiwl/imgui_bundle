@@ -23,38 +23,38 @@ class RampEdit(im_curve_edit.DelegatePure):
         self.points = []
         self.points.append(
             [
-                ImVec2(-10.0, 0),
-                ImVec2(20.0, 0.6),
-                ImVec2(25.0, 0.2),
-                ImVec2(70.0, 0.4),
-                ImVec2(120.0, 1.0),
+                (-10.0, 0),
+                (20.0, 0.6),
+                (25.0, 0.2),
+                (70.0, 0.4),
+                (120.0, 1.0),
             ]
         )
 
         self.points.append(
             [
-                ImVec2(-50.0, 0.2),
-                ImVec2(33.0, 0.7),
-                ImVec2(80.0, 0.2),
-                ImVec2(82.0, 0.8),
+                (-50.0, 0.2),
+                (33.0, 0.7),
+                (80.0, 0.2),
+                (82.0, 0.8),
             ]
         )
 
         self.points.append(
             [
-                ImVec2(40.0, 0),
-                ImVec2(60.0, 0.1),
-                ImVec2(90.0, 0.82),
-                ImVec2(150.0, 0.24),
-                ImVec2(200.0, 0.34),
-                ImVec2(250.0, 0.12),
+                (40.0, 0),
+                (60.0, 0.1),
+                (90.0, 0.82),
+                (150.0, 0.24),
+                (200.0, 0.34),
+                (250.0, 0.12),
             ]
         )
 
         self.visible = [True, True, True]
 
-        self.max = ImVec2(1.0, 1.0)
-        self.min = ImVec2(0.0, 0.0)
+        self.max = (1.0, 1.0)
+        self.min = (0.0, 0.0)
 
     def get_curve_count(self) -> int:
         return len(self.points)
@@ -109,8 +109,8 @@ class RampEdit(im_curve_edit.DelegatePure):
 def make_closure_demo_guizmo_curve_edit() -> GuiFunction:
     # ramp_edit will be encapsulated in the closure
     ramp_edit = RampEdit()
-    ramp_edit.min = ImVec2(-100.0, 0.0)
-    ramp_edit.max = ImVec2(300.0, 1.0)
+    ramp_edit.min = (-100.0, 0.0)
+    ramp_edit.max = (300.0, 1.0)
 
     def gui():
         for i in range(len(ramp_edit.points)):
@@ -120,7 +120,7 @@ def make_closure_demo_guizmo_curve_edit() -> GuiFunction:
             imgui.same_line()
         imgui.new_line()
 
-        ramp_edit_size = ImVec2(800.0, 400.0)
+        ramp_edit_size = (800.0, 400.0)
         ramp_edit_id = 1
         r = im_curve_edit.edit_pure(ramp_edit, ramp_edit_size, ramp_edit_id)
 

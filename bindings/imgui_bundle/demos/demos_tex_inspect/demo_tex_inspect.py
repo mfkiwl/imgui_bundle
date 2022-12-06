@@ -1,7 +1,7 @@
 # Demo imgui_tex_inspect
 # See equivalent C++ program: demos_cpp/demos_tex_inspect/demo_tex_inspect.main.cpp
 import imgui_bundle
-from imgui_bundle import imgui_tex_inspect, hello_imgui, imgui, ImVec2
+from imgui_bundle import imgui_tex_inspect, hello_imgui, imgui
 from imgui_bundle.demos.api_demos import *
 
 
@@ -11,7 +11,7 @@ hello_imgui.set_assets_folder(demos_assets_folder())
 # This returns a closure function that will later be invoked to run the app
 def make_closure_demo_tex_inspect() -> GuiFunction:
     texture_id = None
-    texture_size = ImVec2(512.0, 512.0)
+    texture_size = (512.0, 512.0)
     showDemoImGuiTexInspect = False
 
     def gui():
@@ -29,7 +29,7 @@ def make_closure_demo_tex_inspect() -> GuiFunction:
 
         imgui.text("Simple Demo")
         flags = 0
-        inspectorSize = imgui_tex_inspect.SizeIncludingBorder(ImVec2(600, 600))
+        inspectorSize = imgui_tex_inspect.SizeIncludingBorder((600, 600))
         if imgui_tex_inspect.begin_inspector_panel("Texture Inspector", texture_id, texture_size, flags, inspectorSize):
             imgui_tex_inspect.end_inspector_panel()
 

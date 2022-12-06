@@ -1,5 +1,5 @@
 from __future__ import annotations
-from imgui_bundle import imgui, imgui_node_editor as ed, icons_fontawesome, ImVec2
+from imgui_bundle import imgui, imgui_node_editor as ed, icons_fontawesome
 from typing import List, Optional, Any
 from abc import ABC, abstractmethod
 
@@ -139,7 +139,7 @@ class _FunctionNode:
         position = ed.get_node_position(self.node_id)
         if position.x == 0 and position.y == 0:
             width_between_nodes = 200
-            position = ImVec2(idx * width_between_nodes + 1, 0)  # type: ignore
+            position = (idx * width_between_nodes + 1, 0)  # type: ignore
             ed.set_node_position(self.node_id, position)
 
         imgui.text(self.function.name())

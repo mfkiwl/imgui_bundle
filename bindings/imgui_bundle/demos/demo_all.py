@@ -3,7 +3,7 @@ import sys
 from typing import List, Callable
 from types import ModuleType
 
-from imgui_bundle import imgui, hello_imgui, ImVec2, imgui_color_text_edit as ed, static
+from imgui_bundle import imgui, hello_imgui, imgui_color_text_edit as ed, static
 
 from imgui_bundle.demos import demo_imgui
 from imgui_bundle.demos import demo_imgui_bundle

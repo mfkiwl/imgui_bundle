@@ -1,5 +1,5 @@
 import numpy as np
-from imgui_bundle import implot, imgui_md, ImVec2
+from imgui_bundle import implot, imgui_md
 import imgui_bundle
 
 

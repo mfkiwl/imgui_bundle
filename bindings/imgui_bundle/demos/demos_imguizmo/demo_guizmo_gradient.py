@@ -4,20 +4,8 @@
 
 from typing import List
 from imgui_bundle.demos.api_demos import GuiFunction
-from imgui_bundle import imgui, ImVec4, ImVec2, imguizmo
+from imgui_bundle import imgui, ImVec4, imguizmo
 import imgui_bundle
-
-
-def add_imvec4(a: ImVec4, b: ImVec4) -> ImVec4:
-    return ImVec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w)
-
-
-def mul_scalar_imvec4(a: ImVec4, k: float) -> ImVec4:
-    return ImVec4(a.x * k, a.y * k, a.z * k, a.w * k)
-
-
-ImVec4.__add__ = add_imvec4  # monkey patching
-ImVec4.__mul__ = mul_scalar_imvec4
 
 
 class MyGradient(imguizmo.im_gradient.DelegateStl):
@@ -76,7 +64,7 @@ class MyGradient(imguizmo.im_gradient.DelegateStl):
 # This returns a closure function that will later be invoked to run the app
 def make_closure_demo_guizmo_gradient() -> GuiFunction:
     my_gradient = MyGradient()
-    size = ImVec2(400, 20)
+    size = (400, 20)
 
     def gui() -> None:
         result: bool

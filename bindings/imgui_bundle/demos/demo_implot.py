@@ -5,10 +5,6 @@ import numpy as np
 from imgui_bundle import imgui, implot, static, imgui_md
 
 
-ImVec2 = imgui.ImVec2
-ImVec4 = imgui.ImVec4
-
-
 def _demo_drag_rects_statics() -> Munch:
     nb_data = 512
     sampling_freq = 44100
@@ -37,7 +33,7 @@ def demo_drag_rects():
     imgui.same_line()
     _, statics.flags = imgui.checkbox_flags("NoInput", statics.flags, implot.DragToolFlags_.no_inputs)
 
-    if implot.begin_plot("##Main", ImVec2(-1, 200)):
+    if implot.begin_plot("##Main", (-1, 200)):
         # implot.setup_axes("", "", implot.ImPlotAxisFlags_.no_tick_labels, implot.ImPlotAxisFlags_.no_tick_labels)
         implot.setup_axes_limits(0, 0.01, -1, 1)
         implot.plot_line("Signal 1", statics.x_data, statics.y_data1)
@@ -53,7 +49,7 @@ def demo_drag_rects():
             statics.flags,
         )
         implot.end_plot()
-    if implot.begin_plot("##rect", ImVec2(-1, 200), implot.Flags_.canvas_only):
+    if implot.begin_plot("##rect", (-1, 200), implot.Flags_.canvas_only):
         # implot.setup_axes("", "", implot.ImPlotAxisFlags_.no_decorations, implot.ImPlotAxisFlags_.no_decorations)
         implot.setup_axes_limits(
             statics.rect.x.min, statics.rect.x.max, statics.rect.y.min, statics.rect.y.max, imgui.Cond_.always

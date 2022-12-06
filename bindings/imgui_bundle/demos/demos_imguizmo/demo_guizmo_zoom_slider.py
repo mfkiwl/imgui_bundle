@@ -35,11 +35,11 @@ def draw_zoomable_grid(
     for x in np.arange(0, 1, 0.05):
         x_win = to_x_window_coord(x)
         if rect_min.x <= x_win < rect_max.x:
-            imgui.get_foreground_draw_list().add_line(ImVec2(x_win, rect_min.y), ImVec2(x_win, rect_max.y), color)
+            imgui.get_foreground_draw_list().add_line((x_win, rect_min.y), (x_win, rect_max.y), color)
     for y in np.arange(0, 1, 0.05):
         y_win = to_y_window_coord(y)
         if rect_min.y <= y_win < rect_max.y:
-            imgui.get_foreground_draw_list().add_line(ImVec2(rect_min.x, y_win), ImVec2(rect_max.x, y_win), color)
+            imgui.get_foreground_draw_list().add_line((rect_min.x, y_win), (rect_max.x, y_win), color)
 
 
 # This returns a closure function that will later be invoked to run the app
@@ -61,7 +61,7 @@ def make_closure_demo_guizmo_zoom_slider() -> GuiFunction:
             zone_width = 380.0
             imgui.begin_group()
             # If needed, just use imgui.Dummy to reserve some space
-            imgui.dummy(ImVec2(zone_width, 80))
+            imgui.dummy((zone_width, 80))
             imgui.text(
                 f"""
             You are looking at a zoomable part:
@@ -75,7 +75,7 @@ def make_closure_demo_guizmo_zoom_slider() -> GuiFunction:
             ...now do whatever you want with those values!"""
             )
 
-            imgui.dummy(ImVec2(zone_width, 80))
+            imgui.dummy((zone_width, 80))
             imgui.end_group()
 
         # Get the zoomable part size (which may have been reserved by ImGui:Dummy)
@@ -86,8 +86,8 @@ def make_closure_demo_guizmo_zoom_slider() -> GuiFunction:
         draw_zoomable_grid(
             zoomZoneMin,
             zoomZoneMax,
-            ImVec2(view_horizontal.min, view_vertical.min),
-            ImVec2(view_horizontal.max, view_vertical.max),
+            (view_horizontal.min, view_vertical.min),
+            (view_horizontal.max, view_vertical.max),
         )
 
         # Draw the vertical slider

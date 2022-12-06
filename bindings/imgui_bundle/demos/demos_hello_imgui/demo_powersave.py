@@ -1,4 +1,4 @@
-from imgui_bundle import imgui, ImVec2, run, hello_imgui
+from imgui_bundle import imgui, run, hello_imgui
 
 
 def gui():

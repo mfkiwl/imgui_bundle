@@ -9,7 +9,6 @@ from imgui_bundle import (
     imgui_node_editor as ed,
     static,  # Helper to get static variables
     run_anon_block,  # helper to indent the code with anonymous blocks
-    ImVec2,
 )
 
 
@@ -82,7 +81,7 @@ class DemoNodeEditor:
         imgui.separator()
 
         # Start interaction with editor.
-        ed.begin("My Editor", imgui.ImVec2(0.0, 0.0))
+        ed.begin("My Editor", (0.0, 0.0))
 
         #######################################################################
         # 1) Commit known data to editor
@@ -93,7 +92,7 @@ class DemoNodeEditor:
         node_a_output_pin_id = ed.PinId(ID.next_id())
 
         if self.is_first_frame:
-            ed.set_node_position(node_a_id, imgui.ImVec2(200, -300))
+            ed.set_node_position(node_a_id, (200, -300))
 
         ed.begin_node(node_a_id)
 
@@ -117,7 +116,7 @@ class DemoNodeEditor:
         node_b_output_pin_id = ed.PinId(ID.next_id())
 
         if self.is_first_frame:
-            ed.set_node_position(node_b_id, imgui.ImVec2(210, 60))
+            ed.set_node_position(node_b_id, (210, 60))
 
         ed.begin_node(node_b_id)
 

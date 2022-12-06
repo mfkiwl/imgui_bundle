@@ -2,7 +2,7 @@ import os
 
 
 def main():
-    from imgui_bundle import imgui, ImVec2, imgui_md, hello_imgui, run, AddOnsParams
+    from imgui_bundle import imgui, imgui_md, hello_imgui, run, AddOnsParams
 
     def show_gui():
         """This is the code of the Gui displayed by this app"""

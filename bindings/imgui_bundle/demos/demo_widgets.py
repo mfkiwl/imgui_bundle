@@ -1,4 +1,4 @@
-from imgui_bundle import static, imgui, hello_imgui, imgui_md, ImVec2
+from imgui_bundle import static, imgui, hello_imgui, imgui_md
 
 
 @static(knob_value=0, knob_int_value=0)
@@ -190,7 +190,7 @@ A simple Log viewer from [ImGuiAl](https://github.com/leiradel/ImGuiAl)
         hello_imgui.log(hello_imgui.LogLevel.error, _fake_log_provider())
 
     # hello_imgui.log_gui will display the logs
-    imgui.begin_child("Logs", ImVec2(0, 150))
+    imgui.begin_child("Logs", (0, 150))
     hello_imgui.log_gui()
     imgui.end_child()
 

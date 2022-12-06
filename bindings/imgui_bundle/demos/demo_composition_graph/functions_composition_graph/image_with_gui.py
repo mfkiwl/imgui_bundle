@@ -4,7 +4,7 @@ from typing import Any, Dict, Callable
 import imgui_bundle
 from imgui_bundle.demos.demo_composition_graph.functions_composition_graph import AnyDataWithGui, FunctionWithGui
 from imgui_bundle.demos.demo_composition_graph.functions_composition_graph.cv_color_type import *
-from imgui_bundle import immvision, imgui, ImVec2
+from imgui_bundle import immvision, imgui
 from imgui_bundle import imgui_node_editor
 
 import numpy as np

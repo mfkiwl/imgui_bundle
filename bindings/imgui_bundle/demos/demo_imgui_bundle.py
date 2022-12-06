@@ -1,6 +1,6 @@
 from typing import Dict
 import imgui_bundle
-from imgui_bundle import imgui, imgui_md, static, ImVec2, hello_imgui, imgui_color_text_edit
+from imgui_bundle import imgui, imgui_md, static, hello_imgui, imgui_color_text_edit
 from imgui_bundle.demos import code_str_utils
 import inspect
 
@@ -35,7 +35,7 @@ def show_code_editor(code: str, is_cpp: bool):
         else:
             editors[code].set_language_definition(TextEditor.LanguageDefinition.python())
 
-    editor_size = ImVec2(imgui_bundle.em_size() * 17.0, imgui_bundle.em_size() * 6.0)
+    editor_size = (imgui_bundle.em_size() * 17.0, imgui_bundle.em_size() * 6.0)
     editors[code].set_text(code)
     editor_title = "cpp" if is_cpp else "python"
     editors[code].render(f"##{editor_title}", editor_size)
@@ -50,7 +50,7 @@ def show_python_vs_cpp_code_advice(python_gui_function, cpp_code: str):
 
     imgui.push_id(str(id(python_gui_function)))
 
-    editor_size = ImVec2(imgui_bundle.em_size() * 17.0, imgui_bundle.em_size() * 6.0)
+    editor_size = (imgui_bundle.em_size() * 17.0, imgui_bundle.em_size() * 6.0)
 
     imgui.begin_group()
     imgui.text("C++ code")
@@ -211,7 +211,7 @@ def show_glfw_callback_advice():
         )
 
     imgui.text("Code for this demo")
-    static.text_editor.render("Code", ImVec2(500, 150))
+    static.text_editor.render("Code", (500, 150))
 
     hello_imgui.log_gui()
 
@@ -277,7 +277,7 @@ def demo_imgui_bundle() -> None:
                 app_state.counter += 1
 
         python_code = unindent(inspect.getsource(immediate_gui_example))
-        # imgui.input_text_multiline("##immediate_gui_example", python_code, ImVec2(500, 150))
+        # imgui.input_text_multiline("##immediate_gui_example", python_code, (500, 150))
         show_code_editor(python_code, False)
         imgui.text("Displays this:")
         immediate_gui_example()

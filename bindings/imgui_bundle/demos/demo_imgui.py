@@ -1,4 +1,4 @@
-from imgui_bundle import imgui, imgui_md, static, ImVec2
+from imgui_bundle import imgui, imgui_md, static
 from imgui_bundle.demos import code_str_utils
 import inspect
 
